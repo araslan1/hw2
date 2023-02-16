@@ -3,6 +3,7 @@
 #include <string>
 #include <set>
 #include <vector>
+#include <map>
 #include "product.h"
 #include "user.h"
 
@@ -41,8 +42,6 @@ public:
      * Reproduce the database file from the current Products and User values
      */
     virtual void dump(std::ostream& ofile) = 0;
-
-
 };
 
 #endif

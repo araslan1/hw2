@@ -1,5 +1,6 @@
 #include <sstream>
 #include <iomanip>
+#include <cstring>
 #include "product.h"
 
 using namespace std;

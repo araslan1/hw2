@@ -9,6 +9,8 @@
 #include "db_parser.h"
 #include "product_parser.h"
 #include "util.h"
+#include "mydatastore.h"
+
 
 using namespace std;
 struct ProdNameSorter {
@@ -29,7 +31,7 @@ int main(int argc, char* argv[])
      * Declare your derived DataStore object here replacing
      *  DataStore type to your derived type
      ****************/
-    DataStore ds;
+    MyDataStore ds;
 
 
 
@@ -99,11 +101,46 @@ int main(int argc, char* argv[])
                 }
                 done = true;
             }
-	    /* Add support for other commands here */
-
-
-
-
+            else if ( cmd == "ADD"){
+                string username; 
+                size_t index; 
+                ss >> username; 
+                if (ss.fail()){
+                    cout << "Invalid request" << endl;
+                    break; 
+                }
+                ss >> index; 
+                if (ss.fail()){
+                    cout << "Invalid request" << endl; 
+                    break; 
+                }
+                index = index-1; 
+                if (index < 0 || index > hits.size()){
+                    cout << "Invalid request" << endl; 
+                    break; 
+                }
+                ds.addCart(hits, index, username); 
+            }
+            else if ( cmd == "VIEWCART"){
+                string username; 
+                ss >> username; 
+                if (ss.fail()){
+                    cout << "Invalid request" << endl; 
+                    break; 
+                }
+                username = convToLower(username); 
+                ds.viewCart(username); 
+            }
+            else if ( cmd == "BUYCART"){
+                string username; 
+                ss >> username; 
+                if (ss.fail()){
+                    cout << "Invalid request" << endl; 
+                    break;
+                }
+                username = convToLower(username); 
+                ds.buyCart(username); 
+            }
             else {
                 cout << "Unknown command" << endl;
             }
